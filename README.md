@@ -42,4 +42,6 @@ vi ~/example-ca-crl.pem
 openssl crl -in ~/example-ca-crl.pem -noout -text
 ```
 
+Revocation is based on the certificate's serial number!
+
 ### https://www.davidpashley.com/articles/becoming-a-x-509-certificate-authority/
