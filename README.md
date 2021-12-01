@@ -14,7 +14,8 @@ touch conf/index
 
 # Create a CSR
 ```
-openssl req -nodes -newkey rsa:2048 -keyout server.key -out server.csr -subj "/C=PH/ST=Cebu/L=New Jersey/O=Decahomes Prime/OU=Test 2/CN=server.com"
+cd root-ca
+openssl req -nodes -newkey rsa:2048 -keyout request/server.key -out request/server.csr -subj "/C=PH/ST=Cebu/L=New Jersey/O=Decahomes Prime/OU=Test 2/CN=server.com"
 ```
 
 Here, the following fields must match between a CSR and root CA:
@@ -26,17 +27,20 @@ Otherwise, the root CA cannot sign.
 
 # Sign a CSR
 ```
-openssl ca -batch -config conf/openssl.cnf -in ~/server.csr -out server.cert
+cd root-ca
+openssl ca -batch -config conf/openssl.cnf -in ../request/server.csr 
 ```
 
 # Revoke the certificate
 ```
-openssl ca -config conf/openssl.cnf -revoke ~/server.cert
+cd root-ca
+openssl ca -config conf/openssl.cnf -revoke signed-keys/01.pem
 ```
 
 You should find that the only change has been to the conf/index file. Now we need to generate our CRL so users can tell it’s been revoked.
 
 ```
+cd root-ca
 openssl ca -config conf/openssl.cnf -gencrl -out ~/example-ca-crl.pem
 vi ~/example-ca-crl.pem 
 openssl crl -in ~/example-ca-crl.pem -noout -text
