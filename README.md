@@ -15,7 +15,7 @@ touch conf/index
 # Create a CSR
 ```
 cd root-ca
-openssl req -nodes -newkey rsa:2048 -keyout request/server.key -out request/server.csr -subj "/C=PH/ST=Cebu/L=New Jersey/O=Decahomes Prime/OU=Test 2/CN=server.com"
+openssl req -nodes -newkey rsa:2048 -keyout ../request/server.key -out ../request/server.csr -subj "/C=PH/ST=Cebu/L=New Jersey/O=Decahomes Prime/OU=Test 2/CN=server.com"
 ```
 
 Here, the following fields must match between a CSR and root CA:
